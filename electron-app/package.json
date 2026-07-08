@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "electron-app",
-  "version": "2.3.11",
+  "version": "26.1.1",
   "license": "AGPL-3.0-or-later",
   "main": "./src-gen/backend/electron-main.js",
   "dependencies": {
@@ -19,7 +19,7 @@
     "@theia/preferences": "1.57.0",
     "@theia/terminal": "1.57.0",
     "@theia/workspace": "1.57.0",
-    "arduino-ide-extension": "2.3.11"
+    "arduino-ide-extension": "26.1.1"
   },
   "devDependencies": {
     "@theia/cli": "1.57.0",
@@ -48,7 +48,7 @@
     "prebuild:dev": "yarn prebuild",
     "build:dev": "theia build --config webpack.dev.js --mode development",
     "test": "mocha \"./test/**/*.test.js\"",
-    "start": "theia start --plugins=local-dir:../plugins",
+    "start": "theia start --plugins=local-dir:plugins",
     "watch": "theia build --config webpack.dev.js --mode development --watch",
     "prepackage": "rimraf dist",
     "package": "node ./scripts/package.js",
@@ -59,7 +59,8 @@
     "target": "electron",
     "frontend": {
       "config": {
-        "applicationName": "Arduino IDE",
+        "applicationName": "Rudiron IDE",
+        "defaultLocale": "ru",
         "defaultTheme": {
           "light": "arduino-theme",
           "dark": "arduino-theme-dark"
@@ -92,7 +93,7 @@
     },
     "backend": {
       "config": {
-        "configDirName": ".arduinoIDE",
+        "configDirName": ".rudironIDE",
         "singleInstance": true
       }
     },
@@ -106,7 +107,7 @@
   "description": "Arduino IDE",
   "build": {
     "appId": "cc.arduino.IDE2",
-    "productName": "Arduino IDE",
+    "productName": "Rudiron IDE",
     "asar": false,
     "detectUpdateChannel": false,
     "generateUpdatesFilesForAllChannels": true,

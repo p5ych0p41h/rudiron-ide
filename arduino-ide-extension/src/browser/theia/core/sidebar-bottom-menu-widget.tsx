@@ -48,7 +48,7 @@ export class SidebarBottomMenuWidget extends TheiaSidebarBottomMenuWidget {
 
   override renderItem(item: SidebarMenuItem): React.ReactNode {
     // Removes the _Settings_ (cog) icon from the left sidebar
-    if (item.menu.id === 'settings-menu') {
+    if (item.menu.id === 'settings-menu' || item.menu.id === accountMenu.id) {
       return undefined;
     }
     const arduinoAccount = item.menu.id === accountMenu.id;

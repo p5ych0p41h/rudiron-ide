@@ -1,5 +1,7 @@
 import { promises as fs } from 'node:fs';
-import { dirname } from 'node:path';
+import { dirname, join } from 'node:path';
+import * as fsExtra from '@theia/core/shared/fs-extra';
+import { builtinPackagesPath } from './resources';
 import yaml from 'js-yaml';
 import { injectable, inject, named } from '@theia/core/shared/inversify';
 import URI from '@theia/core/lib/common/uri';
@@ -140,6 +142,19 @@ export class ConfigServiceImpl
       const cliConfig = await this.loadCliConfig();
       this.logger.info('Loaded the CLI configuration.');
       this.cliConfig = cliConfig;
+
+      try {
+        const bundledRudironPath = join(builtinPackagesPath, 'Rudiron');
+        const targetRudironPath = join(cliConfig.directories.data, 'packages', 'Rudiron');
+        if (await fsExtra.pathExists(bundledRudironPath) && !(await fsExtra.pathExists(targetRudironPath))) {
+          this.logger.info(`Copying bundled Rudiron core from ${bundledRudironPath} to ${targetRudironPath}...`);
+          await fsExtra.copy(bundledRudironPath, targetRudironPath);
+          this.logger.info('Bundled Rudiron core copied successfully.');
+        }
+      } catch (copyErr) {
+        this.logger.error('Failed to copy bundled core packages.', copyErr);
+      }
+
       const [config] = await Promise.all([
         this.mapCliConfigToAppConfig(this.cliConfig),
         this.ensureUserDirExists(this.cliConfig).catch((reason) => {
@@ -230,7 +245,8 @@ export class ConfigServiceImpl
     // Since CLI 1.0, the command `config dump` only returns user-modified values and not default ones.
     // directories.user and directories.data are required by IDE2 so we get the default value for each explicitly.
     const user = await this.getDirectoryValue(cliPath, 'user');
-    const data = await this.getDirectoryValue(cliPath, 'data');
+    let data = await this.getDirectoryValue(cliPath, 'data');
+    data = data.replace(/Arduino15/ig, 'Rudiron15');
 
     return {
       ...config.config,
@@ -260,6 +276,9 @@ export class ConfigServiceImpl
   private async initCliConfigTo(fsPathToDir: string): Promise<void> {
     const cliPath = this.daemon.getExecPath();
     await spawnCommand(cliPath, ['config', 'init', '--dest-dir', fsPathToDir]);
+    const fallbackData = await this.getDirectoryValue(cliPath, 'data');
+    const newDataDir = fallbackData.replace(/Arduino15/ig, 'Rudiron15');
+    await spawnCommand(cliPath, ['config', 'set', 'directories.data', newDataDir, '--config-file', join(fsPathToDir, 'arduino-cli.yaml')]);
   }
 
   private async mapCliConfigToAppConfig(

@@ -310,7 +310,7 @@ export class BoardsDataStore
   }
 
   protected getStorageKey(fqbn: string): string {
-    return `.arduinoIDE-configOptions-${fqbn}`;
+    return `.rudironIDE-configOptions-${fqbn}`;
   }
 
   async loadBoardDetails(

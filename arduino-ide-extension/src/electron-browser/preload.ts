@@ -120,6 +120,15 @@ const api: ElectronArduino = {
 };
 
 export function preload(): void {
+  try {
+    if (!localStorage.getItem('locale-initialized')) {
+      localStorage.setItem('locale', 'ru');
+      localStorage.setItem('locale-initialized', 'true');
+    }
+  } catch (e) {
+    console.error('Failed to initialize locale', e);
+  }
+
   contextBridge.exposeInMainWorld('electronArduino', api);
   ipcRenderer.on(CHANNEL_MAIN_MENU_ITEM_DID_CLICK, (_, nodeId: string) => {
     const handler = mainMenuHandlers.get(nodeId);
@@ -127,5 +136,5 @@ export function preload(): void {
       handler();
     }
   });
-  console.log('Exposed Arduino IDE electron API');
+  console.log('Exposed Rudiron IDE electron API');
 }

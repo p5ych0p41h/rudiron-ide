@@ -30,3 +30,6 @@ export const arduinoPlotterWebAppPath = path.join(
 
 // examples
 export const examplesPath = path.join(resourcesPath, 'Examples');
+
+// builtin packages
+export const builtinPackagesPath = path.join(resourcesPath, 'builtin-packages');

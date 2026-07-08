@@ -206,7 +206,7 @@ const properties: ArduinoPreferenceSchemaProperties = {
       'arduino/preferences/cloud.enabled',
       'True if the sketch sync functions are enabled. Defaults to true.'
     ),
-    default: true,
+    default: false,
   },
   'arduino.cloud.pull.warn': {
     type: 'boolean',

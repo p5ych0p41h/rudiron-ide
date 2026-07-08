@@ -1,7 +1,7 @@
 {
   "arduino": {
     "about": {
-      "detail": "Версия: {0}\nДата: {1}{2}\nВерсия CLI: {3}{4} [{5}]\n\n{6}",
+      "detail": "Версия: {0}\nДата: {1}{2}\nВерсия CLI: {3}\n\n{4}",
       "label": "О программе {0}"
     },
     "account": {
@@ -261,33 +261,31 @@
       "updater": "Программа обновления прошивки"
     },
     "help": {
-      "environment": "Окружение",
-      "faq": "Часто задаваемые вопросы",
+      "coreSource": "Исходный код ядра",
       "findInReference": "Найти в справочнике",
       "gettingStarted": "Приступая к работе",
       "keyword": "Введите ключевое слово",
-      "privacyPolicy": "Политика конфиденциальности",
+      "projectRepo": "Репозиторий проекта",
       "reference": "Справочник по функциям",
-      "search": "Найти на Arduino.cc",
-      "troubleshooting": "Устранение неполадок",
-      "visit": "Перейти на сайт Arduino.cc"
+      "search": "Найти в справочнике",
+      "visitRudiron": "Перейти на сайт Rudiron"
     },
     "ide-updater": {
-      "checkForUpdates": "Проверка обновлений среды Arduino IDE",
+      "checkForUpdates": "Проверка обновлений среды Rudiron IDE",
       "closeAndInstallButton": "Закрыть и установить",
       "closeToInstallNotice": "Закройте программное обеспечение и установите обновление на вашем компьютере.",
       "downloadButton": "Скачать",
-      "downloadingNotice": "Загрузка последней версии Arduino IDE.",
-      "errorCheckingForUpdates": "Ошибка при проверке обновлений IDE Arduino.\n{0}",
+      "downloadingNotice": "Загрузка последней версии Rudiron IDE.",
+      "errorCheckingForUpdates": "Ошибка при проверке обновлений Rudiron IDE.\n{0}",
       "goToDownloadButton": "Перейдите к скачиванию",
-      "goToDownloadPage": "Доступно обновление для Arduino IDE, но мы не можем загрузить и установить его автоматически. Пожалуйста, перейдите на страницу загрузки и оттуда загрузите последнюю версию.",
+      "goToDownloadPage": "Доступно обновление для Rudiron IDE, но мы не можем загрузить и установить его автоматически. Пожалуйста, перейдите на страницу загрузки и оттуда загрузите последнюю версию.",
       "ideUpdaterDialog": "Обновление программного обеспечения",
-      "newVersionAvailable": "Новая версия Arduino IDE ({0}) доступна для загрузки.",
-      "noUpdatesAvailable": "Нет обновлений для Arduino IDE",
+      "newVersionAvailable": "Новая версия Rudiron IDE ({0}) доступна для загрузки.",
+      "noUpdatesAvailable": "Нет обновлений для Rudiron IDE",
       "notNowButton": "Не сейчас",
       "skipVersionButton": "Пропустить версию",
       "updateAvailable": "Доступны обновления",
-      "versionDownloaded": "Arduino IDE {0} был загружен."
+      "versionDownloaded": "Rudiron IDE {0} был загружен."
     },
     "installable": {
       "libraryInstallFailed": "Не удалось установить библиотеку: '{0}{1}'.",
@@ -489,7 +487,7 @@
       "newSketch": "Новый скетч"
     },
     "theme": {
-      "currentThemeNotFound": "Не удалось найти текущую выбранную тему: {0}. Arduino IDE выбрала встроенную тему, совместимую с отсутствующей.",
+      "currentThemeNotFound": "Не удалось найти текущую выбранную тему: {0}. Rudiron IDE выбрала встроенную тему, совместимую с отсутствующей.",
       "dark": "Темный",
       "deprecated": "{0} (устаревшее)",
       "hc": "Темная высокая контрастность",
