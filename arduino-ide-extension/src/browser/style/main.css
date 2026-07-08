@@ -201,3 +201,10 @@
 .monaco-hover .hover-row.markdown-hover:first-child .monaco-tokenized-source {
     margin-top: 8px;
 }
+
+.theia-icon {
+    background-image: url("./ide-logo.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
