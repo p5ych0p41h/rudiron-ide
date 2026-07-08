@@ -22,9 +22,6 @@ jobs:
       - name: Install Yarn
         run: npm install -g yarn
 
-      - name: Configure node-gyp Visual Studio version
-        run: npm config set msvs_version 2022 --global
-
       - name: Install Dependencies
         run: yarn install
         env:
