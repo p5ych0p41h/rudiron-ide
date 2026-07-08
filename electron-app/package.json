@@ -132,6 +132,10 @@
       {
         "from": "plugins",
         "to": "app/plugins"
+      },
+      {
+        "from": "resources/drivers",
+        "to": "drivers"
       }
     ],
     "win": {
@@ -174,7 +178,8 @@
       "installerSidebar": "resources/installerSidebar.bmp",
       "uninstallerSidebar": "resources/installerSidebar.bmp",
       "allowToChangeInstallationDirectory": true,
-      "license": "resources/eula.txt"
+      "license": "resources/eula.txt",
+      "include": "scripts/installer.nsh"
     },
     "dmg": {
       "icon": "resources/icon.icns",
