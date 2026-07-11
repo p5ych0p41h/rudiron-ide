@@ -567,6 +567,33 @@ export class ElectronMainApplication extends TheiaElectronMainApplication {
     options.webPreferences.v8CacheOptions = 'bypassHeatCheck'; // TODO: verify this. VS Code use this V8 option.
     options.minWidth = 680;
     options.minHeight = 593;
+
+    let isDark = false;
+    try {
+      const os = require('os');
+      const path = require('path');
+      const fs = require('fs');
+      const settingsPath = path.join(os.homedir(), '.rudironIDE', 'settings.json');
+      if (fs.existsSync(settingsPath)) {
+        const settingsContent = fs.readFileSync(settingsPath, 'utf8');
+        const settings = JSON.parse(settingsContent);
+        const theme = settings['workbench.colorTheme'];
+        if (theme) {
+          isDark = theme.includes('dark');
+        } else {
+          isDark = require('@theia/core/electron-shared/electron').nativeTheme.shouldUseDarkColors;
+        }
+      } else {
+        isDark = require('@theia/core/electron-shared/electron').nativeTheme.shouldUseDarkColors;
+      }
+    } catch (e) {
+      try {
+        isDark = require('@theia/core/electron-shared/electron').nativeTheme.shouldUseDarkColors;
+      } catch (err) {}
+    }
+
+    options.backgroundColor = isDark ? '#1f272a' : '#ffffff';
+
     return options;
   }
 

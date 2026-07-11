@@ -1,17 +1,24 @@
+    <script>
+        (function() {
+            var bg = '#ffffff';
+            try {
+                var storedBg = localStorage.getItem('theme.background');
+                var storedTheme = localStorage.getItem('theme');
+                if (storedBg) {
+                    bg = storedBg;
+                } else if (storedTheme) {
+                    if (storedTheme.indexOf('dark') !== -1) {
+                        bg = '#1f272a';
+                    }
+                } else {
+                    var dark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    bg = dark ? '#1f272a' : '#ffffff';
+                }
+            } catch (e) {}
+            document.documentElement.style.setProperty('background-color', bg, 'important');
+        })();
+    </script>
     <style>
-        /* The colors are hard-coded and based on the `editor.background` and `editor.foreground` values from `./arduino-ide-extension/src/browser/data/default.color-theme.json` */
-        @media (prefers-color-scheme: light) {
-            html {
-                background: #ffffff;
-            }
-        }
-
-        /* The colors are hard-coded and based on the `editor.background` and `editor.foreground` values from `./arduino-ide-extension/src/browser/data/dark.color-theme.json` */
-        @media (prefers-color-scheme: dark) {
-            html {
-                background: #1f272a;
-            }
-        }
 
         .theia-preload {
             position: absolute;
