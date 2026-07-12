@@ -68,7 +68,7 @@
     "tab.unfocusedActiveForeground": "#231f20",
     "tab.inactiveBackground": "#ecf1f1",
     "textLink.foreground": "#005869",
-    "errorForeground": "#720f11",
+    "errorForeground": "#f48580",
     "notifications.background": "#edf1f3",
     "notifications.foreground": "#005869",
     "notifications.border": "#6c8a9966",
