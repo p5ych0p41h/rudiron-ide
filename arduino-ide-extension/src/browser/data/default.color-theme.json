@@ -31,7 +31,7 @@
     "titleBar.activeForeground": "#f7f9f9",
     "terminal.background": "#231f20",
     "terminal.foreground": "#ffffff",
-    "dropdown.border": "#dae3e3",
+    "dropdown.border": "#6c8a9966",
     "dropdown.background": "#ffffff",
     "dropdown.foreground": "#231f20",
     "activityBar.background": "#ecf1f1",
@@ -51,7 +51,7 @@
     "arduino.toolbar.button.secondary.label": "#dae3e3",
     "arduino.toolbar.button.secondary.hoverBackground": "#dae3e366",
     "arduino.toolbar.button.background": "#0098b6",
-    "arduino.toolbar.dropdown.border": "#dae3e3",
+    "arduino.toolbar.dropdown.border": "#6c8a9966",
     "arduino.toolbar.dropdown.borderActive": "#0098b6",
     "arduino.toolbar.dropdown.background": "#ffffff",
     "arduino.toolbar.dropdown.label": "#231f20",
@@ -64,11 +64,15 @@
     "input.background": "#ffffff",
     "foreground": "#231f20",
     "settings.headerForeground": "#231f20",
-    "tree.indentGuidesStroke": "#dae3e3",
+    "tree.indentGuidesStroke": "#6c8a9966",
     "tab.unfocusedActiveForeground": "#231f20",
     "tab.inactiveBackground": "#ecf1f1",
     "textLink.foreground": "#005869",
-    "errorForeground": "#f48580"
+    "errorForeground": "#720f11",
+    "notifications.background": "#edf1f3",
+    "notifications.foreground": "#005869",
+    "notifications.border": "#6c8a9966",
+    "notificationLink.foreground": "#0098b6"
   },
   "tokenColors": [
     {
