@@ -32,13 +32,13 @@ jobs:
         env:
           GYP_MSVS_VERSION: 2022
 
-      - name: Build Project
-        run: yarn build
-
       - name: Rebuild native dependencies for Electron
         run: yarn rebuild:electron
         env:
           GYP_MSVS_VERSION: 2022
+
+      - name: Build Project
+        run: yarn build
 
       - name: Package Windows EXE
         run: yarn --cwd ./electron-app package
