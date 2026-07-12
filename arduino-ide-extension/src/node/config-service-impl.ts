@@ -151,8 +151,39 @@ export class ConfigServiceImpl
           await fsExtra.copy(bundledRudironPath, targetRudironPath);
           this.logger.info('Bundled Rudiron core copied successfully.');
         }
-      } catch (copyErr) {
-        this.logger.error('Failed to copy bundled core packages.', copyErr);
+
+        const dataDir = cliConfig.directories.data;
+        const primaryIndexPath = join(dataDir, 'package_index.json');
+        const libraryIndexPath = join(dataDir, 'library_index.json');
+
+        if (!(await fsExtra.pathExists(primaryIndexPath))) {
+          this.logger.info(`Creating dummy package_index.json at ${primaryIndexPath}`);
+          await fsExtra.outputJson(primaryIndexPath, { packages: [] });
+        }
+        if (!(await fsExtra.pathExists(libraryIndexPath))) {
+          this.logger.info(`Creating dummy library_index.json at ${libraryIndexPath}`);
+          await fsExtra.outputJson(libraryIndexPath, { libraries: [] });
+        }
+
+        const rawJsonPath = join(dataDir, 'raw.json');
+        const rawPath = join(dataDir, 'raw');
+        const copyRaw = async () => {
+          try {
+            if (await fsExtra.pathExists(rawJsonPath)) {
+              await fsExtra.copy(rawJsonPath, rawPath);
+            }
+          } catch (e) {
+            this.logger.error('Failed to copy raw.json to raw', e);
+          }
+        };
+        await copyRaw();
+        fsExtra.watch(dataDir, (eventType, filename) => {
+          if (filename === 'raw.json') {
+            copyRaw();
+          }
+        });
+      } catch (err) {
+        this.logger.error('Failed to copy bundled core packages or handle index synchronization.', err);
       }
 
       const [config] = await Promise.all([
@@ -202,6 +233,25 @@ export class ConfigServiceImpl
       });
       const model = (yaml.safeLoad(content) || {}) as CliConfig;
       this.logger.info(`Loaded CLI configuration: ${JSON.stringify(model)}`);
+
+      const gitflicUrl = 'https://gitflic.ru/project/akvarius-rudiron/rudiron-distr/blob/raw?file=setup%2Fpackage_Rudiron_index.json';
+      let needsWrite = false;
+      if (!model.board_manager) {
+        (model as any).board_manager = {};
+        needsWrite = true;
+      }
+      const bm = model.board_manager as any;
+      if (!bm.additional_urls) {
+        bm.additional_urls = [];
+        needsWrite = true;
+      }
+      if (!bm.additional_urls.includes(gitflicUrl)) {
+        bm.additional_urls.push(gitflicUrl);
+        needsWrite = true;
+      }
+      if (needsWrite) {
+        await fs.writeFile(cliConfigPath, yaml.safeDump(model), { encoding: 'utf8' });
+      }
       if (model.directories?.data && model.directories?.user) {
         this.logger.info(
           "'directories.data' and 'directories.user' are set in the CLI configuration model."

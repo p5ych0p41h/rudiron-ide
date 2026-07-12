@@ -585,9 +585,13 @@ function createBoardsPackage(
     return undefined;
   }
   const versionReleaseMap = new Map(summary.releasesMap);
-  const actualRelease =
+  let actualRelease =
     versionReleaseMap.get(summary.installedVersion) ??
     versionReleaseMap.get(summary.latestVersion);
+  if (!actualRelease && versionReleaseMap.size > 0) {
+    const firstVersion = Array.from(versionReleaseMap.keys())[0];
+    actualRelease = versionReleaseMap.get(firstVersion);
+  }
   if (!actualRelease) {
     return undefined;
   }
