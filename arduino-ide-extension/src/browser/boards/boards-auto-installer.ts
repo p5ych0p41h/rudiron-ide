@@ -62,9 +62,37 @@ export class BoardsAutoInstaller implements FrontendApplicationContribution {
         this.clearAllNotificationForPlatform(event.item.id)
       ),
     ]);
-    this.boardsServiceProvider.ready.then(() => {
+    this.boardsServiceProvider.ready.then(async () => {
       const { selectedBoard } = this.boardsServiceProvider.boardsConfig;
       this.ensureCoreExists(selectedBoard);
+
+      try {
+        const installed = await this.boardsService.getInstalledPlatforms();
+        const hasRudiron = installed.some(p => p.id.toLowerCase().startsWith('rudiron:'));
+        if (!hasRudiron) {
+          const platforms = await this.boardsService.search({ query: 'Rudiron' });
+          const rudironPlatform = platforms.find(p => p.id.toLowerCase().startsWith('rudiron:'));
+          if (rudironPlatform) {
+            const yes = nls.localize('vscode/extensionsUtils/yes', 'Yes');
+            const message = nls.localize(
+              'arduino/board/installRudironNow',
+              'Пакет ядер плат Rudiron не установлен. Хотите скачать и установить его сейчас?'
+            );
+            const answer = await this.messageService.info(message, yes);
+            if (answer === yes) {
+              await Installable.installWithProgress({
+                installable: this.boardsService,
+                item: rudironPlatform,
+                messageService: this.messageService,
+                responseService: this.responseService,
+                version: rudironPlatform.availableVersions[0],
+              });
+            }
+          }
+        }
+      } catch (e) {
+        console.error('Failed to check or auto-install Rudiron core', e);
+      }
     });
   }
 

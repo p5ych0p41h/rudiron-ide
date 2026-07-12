@@ -97,9 +97,14 @@ export class ConfigServiceImpl
       data: FileUri.fsPath(dataDirUri),
       user: FileUri.fsPath(sketchDirUri),
     };
-    copyDefaultCliConfig.board_manager = {
-      additional_urls: [...additionalUrls],
-    };
+    const gitflicUrl = 'https://gitflic.ru/project/akvarius-rudiron/rudiron-distr/blob/raw?file=setup%2Fpackage_Rudiron_index.json';
+    const mergedUrls = [...additionalUrls];
+    if (!mergedUrls.includes(gitflicUrl)) {
+      mergedUrls.push(gitflicUrl);
+    }
+    const bm = copyDefaultCliConfig.board_manager as any || {};
+    bm.additional_urls = mergedUrls;
+    copyDefaultCliConfig.board_manager = bm;
     copyDefaultCliConfig.locale = locale || 'en';
     const proxy = Network.stringify(network);
     copyDefaultCliConfig.network = proxy ? { proxy } : {}; // must be an empty object to unset the default prop with the `WriteRequest`.
@@ -342,11 +347,13 @@ export class ConfigServiceImpl
         ...Array.from(new Set(cliConfig.board_manager.additional_urls))
       );
     }
+    const gitflicUrl = 'https://gitflic.ru/project/akvarius-rudiron/rudiron-distr/blob/raw?file=setup%2Fpackage_Rudiron_index.json';
+    const filteredUrls = additionalUrls.filter(url => url !== gitflicUrl);
     const network = Network.parse(cliConfig.network?.proxy);
     return {
       dataDirUri: FileUri.create(data).toString(),
       sketchDirUri: FileUri.create(user).toString(),
-      additionalUrls,
+      additionalUrls: filteredUrls,
       network,
       locale,
     };

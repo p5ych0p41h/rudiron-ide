@@ -264,7 +264,8 @@ export class BoardsServiceImpl
       .map((message) => message.toObject(false))
       .filter((summary) => summary.installedVersion) // only installed ones
       .map(createBoardsPackage)
-      .filter(notEmpty);
+      .filter(notEmpty)
+      .filter((pkg) => pkg.id.toLowerCase().startsWith('rudiron:'));
   }
 
   private async handleListBoards(
@@ -310,6 +311,9 @@ export class BoardsServiceImpl
               console.warn(
                 `Could not create platform identifier from platform ID input: ${platformId}. Skipping`
               );
+              continue;
+            }
+            if (!parsedPlatformId.vendorId.toLowerCase().startsWith('rudiron')) {
               continue;
             }
             if (fqbn) {
@@ -409,7 +413,8 @@ export class BoardsServiceImpl
       .map((message) => message.toObject(false))
       .map(createBoardsPackage)
       .filter(notEmpty)
-      .filter(typeFilter);
+      .filter(typeFilter)
+      .filter((pkg) => pkg.id.toLowerCase().startsWith('rudiron:'));
     return sortComponents(boardsPackages, boardsPackageSortGroup);
   }
 
