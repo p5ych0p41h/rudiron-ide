@@ -178,10 +178,10 @@ const properties: ArduinoPreferenceSchemaProperties = {
   },
   'arduino.ide.updateBaseUrl': {
     type: 'string',
-    default: 'https://downloads.arduino.cc/arduino-ide',
+    default: 'https://downloads.rudiron.ru/rudiron-ide',
     description: nls.localize(
       'arduino/preferences/ide.updateBaseUrl',
-      "The base URL where to download updates from. Defaults to 'https://downloads.arduino.cc/arduino-ide'"
+      "The base URL where to download updates from. Defaults to 'https://downloads.rudiron.ru/rudiron-ide'"
     ),
   },
   'arduino.board.certificates': {

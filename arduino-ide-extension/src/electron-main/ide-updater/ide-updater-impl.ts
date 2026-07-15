@@ -7,7 +7,7 @@ import {
   IDEUpdaterClient,
 } from '../../common/protocol/ide-updater';
 
-const CHANGELOG_BASE_URL = 'https://downloads.arduino.cc/arduino-ide/changelog';
+const CHANGELOG_BASE_URL = 'https://downloads.rudiron.ru/rudiron-ide/changelog';
 
 @injectable()
 export class IDEUpdaterImpl implements IDEUpdater {
