@@ -103,8 +103,8 @@
       }
     }
   },
-  "author": "Arduino SA",
-  "description": "Arduino IDE",
+  "author": "ООО «ПК Аквариус»",
+  "description": "Rudiron IDE",
   "build": {
     "appId": "cc.arduino.IDE2",
     "productName": "Rudiron IDE",
