@@ -1,4 +1,3 @@
-import { nls } from '@theia/core/lib/common/nls';
 import { LocalStorageService } from '@theia/core/lib/browser/storage-service';
 import { inject, injectable } from '@theia/core/shared/inversify';
 import {
@@ -64,13 +63,7 @@ export class CheckForIDEUpdates extends Contribution {
         this.updaterDialog.open(true, updateInfo);
       })
       .catch((e) => {
-        this.messageService.error(
-          nls.localize(
-            'arduino/ide-updater/errorCheckingForUpdates',
-            'Error while checking for Rudiron IDE updates.\n{0}',
-            e.message
-          )
-        );
+        console.error('Error while checking for Rudiron IDE updates:', e);
       })
       .finally(() => {
         this.setCurrentIDEVersion();
