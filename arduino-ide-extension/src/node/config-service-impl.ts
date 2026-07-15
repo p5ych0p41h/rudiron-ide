@@ -299,7 +299,8 @@ export class ConfigServiceImpl
 
     // Since CLI 1.0, the command `config dump` only returns user-modified values and not default ones.
     // directories.user and directories.data are required by IDE2 so we get the default value for each explicitly.
-    const user = await this.getDirectoryValue(cliPath, 'user');
+    let user = await this.getDirectoryValue(cliPath, 'user');
+    user = user.replace(/Arduino/g, 'Rudiron');
     let data = await this.getDirectoryValue(cliPath, 'data');
     data = data.replace(/Arduino15/ig, 'Rudiron15');
 
@@ -334,6 +335,9 @@ export class ConfigServiceImpl
     const fallbackData = await this.getDirectoryValue(cliPath, 'data');
     const newDataDir = fallbackData.replace(/Arduino15/ig, 'Rudiron15');
     await spawnCommand(cliPath, ['config', 'set', 'directories.data', newDataDir, '--config-file', join(fsPathToDir, 'arduino-cli.yaml')]);
+    const fallbackUser = await this.getDirectoryValue(cliPath, 'user');
+    const newSketchbookDir = fallbackUser.replace(/Arduino/g, 'Rudiron');
+    await spawnCommand(cliPath, ['config', 'set', 'directories.user', newSketchbookDir, '--config-file', join(fsPathToDir, 'arduino-cli.yaml')]);
   }
 
   private async mapCliConfigToAppConfig(
